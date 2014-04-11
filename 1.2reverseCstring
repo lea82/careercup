@@ -1,0 +1,33 @@
+//Write code to reverse a C-Style String. 
+//(C-String means that “abcd” is represented as five characters, including the null character.)
+//e.g "abcd" represents 5 chars, a,b,c,d,\0
+
+//two points to start and end of the string, start swamp chars
+void swap(char &a, char &b){ //don't forget &
+a=a^b;
+b=a^b;
+a=a^b;
+}
+
+void reverse(char *s){
+  char *p=*q=s;
+  while (*q) q++; 
+  q--; //put q to the last char of s
+  while(p<q){//start swap
+    swap(*p,*q);
+    p++;
+    q--;
+  }
+}
+
+int main(){
+  char *s="0123456789";
+  reverse(s);
+  cout<<s<<endl;
+  return 0;
+}
+
+/* int main ( )  
+int main ( int argc, char *argv[] )  
+main() has to be int, not void, this allows a return code to be passed to the invoker)  
+*/
