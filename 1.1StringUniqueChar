@@ -1,0 +1,49 @@
+/*Implement an algorithm to determine if a string has all unique characters. 
+What if you can not use additional data structures?
+*/
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+//assume it's ASCII
+//O(n)
+
+bool isUnique(string s){
+  int len=s.size(); //s.length()?
+  bool m[256]; //mapping
+  memset(m,0,sizeof(m)); //initialization
+  for (int i=0;i<len;i++){
+    int value=(int) s[i];
+    if (m[value]) return false;
+    m[value]=true;
+  }
+  return true;
+}
+    
+    
+//what if no additonal data structure?
+////256 bit, 32 bytes -->int array of size 8 (sizeof(int)==4) 
+//char's int value div 32 maps to which byte of the int array, mod 32 maps to which bit in that byte
+
+bool isUniqueII(string s){
+  int len=s.size();
+  bool m[8]; //mapping
+  memset(m,0,sizeof(0));
+  for (int i=0;i<len;i++){
+    int v=(int) s[i];
+    int idx=v / 32;
+    int shift=v % 32;
+    if (m[idx]&(1<<shift)) return false;
+    m[idx]|=1<<shift;
+  }
+  return true;
+}
+
+int main(){
+  string s1="hello lea here";
+  string s2="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  cout<<s1<<"has all unque chars?"<<" "<<isUnique(s1)<<" "<<isUnique(s2)<<endl;
+  cout<<s2<<"has all unque chars?"<<" "<<isUniqueII(s1)<<" "<<isUniqueII(s2)<<endl;
+  return 0;
+}
+  
